@@ -1,17 +1,21 @@
 import edu.princeton.cs.algs4.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
+import java.lang.Math;
 
 
 public class Driver {
 	public static void main(String[] args) {
+		//Instantiate the tree
+		SpatialTree st = new SpatialTree();
+		
 		// setup standard draw
 		// -- the actual pixel dimensions
 		StdDraw.setCanvasSize(512, 512);
 		// -- the drawing coordinates
 		StdDraw.setXscale(0, 1.0);
 		StdDraw.setYscale(0, 1.0);
-		
 		// current state of user "query"
 		// -- these store whether the user is clicking, and where they started
 		//    clicking
@@ -24,6 +28,7 @@ public class Driver {
 		
 		// draw until the user quits
 		for(;;) {
+			StdDraw.enableDoubleBuffering();
 			StdDraw.clear();
 			
 			///////////////////////////
@@ -62,6 +67,14 @@ public class Driver {
 				currentClickX = StdDraw.mouseX();
 				currentClickY = StdDraw.mouseY();
 				
+				//Marks cooridnate thats been clicked
+				Point2D p = new Point2D.Double(currentClickX, currentClickY);
+				
+				//Create node with current coord
+				st.add(p);
+				
+				
+				
 
 				
 				// draw a line from the initial click location to the current
@@ -77,14 +90,7 @@ public class Driver {
 			if(StdDraw.isKeyPressed(KeyEvent.VK_Q)) {
 				break;
 			}
-			
-			// display for a short time (25ms ~= 1/40th of a second
-			Point2D p = new Point2D(currentClickX, currentClickY);
-			StdDraw.setPenColor(StdDraw.BOOK_RED);
-			StdDraw.filledCircle(currentClickX, currentClickY, 0.01);
-			
 		}
-
 		// kill the application by closing the StdDraw window
 		System.exit(0);
 	}

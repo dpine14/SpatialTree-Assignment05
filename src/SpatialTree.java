@@ -2,7 +2,7 @@ import java.awt.geom.Point2D;
 import java.lang.Math;
 import edu.princeton.cs.algs4.*;
 
-public class SpatialTree {
+public class SpatialTree{
 	private Node root;
 	
 	public SpatialTree() {
@@ -18,19 +18,19 @@ public class SpatialTree {
 		}
 		
 		//Case 2: We reached a leaf
-		if(r.left == null && r.right == null){
+		if(r.getLeft() == null && r.getRight() == null){
 			return r;
 		}
 		
 		//Case 3: I found the value
-		if((r.point.getX() - p.getX()) == 0  && (r.point.getY() - p.getY()) == 0){
+		if((r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) == 0){
 			return r;
 		}
-		if(r.left != null && (r.point.getX() - p.getX()) == 0  && (r.point.getY() - p.getY()) > 0){
-			return findNode(p, r.left);
+		if(r.getLeft() != null && (r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) > 0){
+			return findNode(p, r.getLeft());
 		}
-		if(r.right != null && (r.point.getX() - p.getX()) == 0  && (r.point.getY() - p.getY()) < 0){
-			return findNode(p, r.right);
+		if(r.getRight() != null && (r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) < 0){
+			return findNode(p, r.getRight());
 		}
 		return r;
 	}
@@ -46,7 +46,7 @@ public class SpatialTree {
 		}
 		
 		//Value already exists in the set
-		if(n.point.equals(p) == true)
+		if(n.getPoint().equals(p) == true)
 		{
 			
 			return false;
@@ -54,29 +54,43 @@ public class SpatialTree {
 		
 		//Value does not exist in the set and n is the parent
 		//Case 1: v will be a left child
-		if((n.point.getX() - p.getX()) > 0  && (n.point.getY() - p.getY()) > 0)
+		if((n.getPoint().getX() - p.getX()) > 0  && (n.getPoint().getY() - p.getY()) > 0)
 		{
-			n.left = new Node(p, n);
+			n.setLeft(new Node(p, n));
 		}
 		//Case 2: v will be right child
 		else
 		{
-			n.right = new Node(p, n);
+			n.setRight(new Node(p, n));
 		}
 		return true;
 	}
 	
-	private class Node{
-		private Node left, right, parent;
-		private Point2D point;
-		private boolean isX = true;
-		
-		public Node(Point2D p, Node parent) {
-			left = null;
-			right = null;
-			this.parent = parent;
-			this.isX = isX;
+	private String toStringRecursive(StringBuilder sb, Node root, int level)
+	{
+		//Print the root
+		for(int i=0; i < level; i++)
+		{
+			sb.append("\t");
 		}
+		sb.append(root + "\n");
+		
+		if(root.getLeft() != null)
+		{
+			toStringRecursive(sb, root.getLeft(), level+1);
+		}
+		if(root.getRight() != null)
+		{
+			toStringRecursive(sb, root.getRight(), level+1);
+		}
+		
+		return sb.toString();
+		
 	}
-}
-
+	
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		return toStringRecursive(sb, root, 0);
+	}
+}	
