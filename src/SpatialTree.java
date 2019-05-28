@@ -47,6 +47,7 @@ public class SpatialTree {
 		//Value already exists in the set
 		if(n.point.equals(p) == true)
 		{
+			
 			return false;
 		}
 		
