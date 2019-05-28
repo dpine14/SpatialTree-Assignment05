@@ -9,6 +9,10 @@ public class SpatialTree{
 		root = null;
 	}
 	
+	public Node getRoot() {
+		return root;
+	}
+	
 	private Node findNode(Point2D p, Node r)
 	{
 		//Case 1: Tree is empty
@@ -48,7 +52,6 @@ public class SpatialTree{
 		//Value already exists in the set
 		if(n.getPoint().equals(p) == true)
 		{
-			
 			return false;
 		}
 		
@@ -63,7 +66,12 @@ public class SpatialTree{
 		{
 			n.setRight(new Node(p, n));
 		}
+		System.out.println("Node added");
 		return true;
+	}
+	
+	public void draw() {
+		
 	}
 	
 	private String toStringRecursive(StringBuilder sb, Node root, int level)

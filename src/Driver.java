@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.lang.Math;
+import java.util.Stack;
 
 
 public class Driver {
@@ -10,12 +11,16 @@ public class Driver {
 		//Instantiate the tree
 		SpatialTree st = new SpatialTree();
 		
+		//Instantiate stack to hold drawn points
+		Stack drawn = new Stack();
+		
 		// setup standard draw
 		// -- the actual pixel dimensions
 		StdDraw.setCanvasSize(512, 512);
 		// -- the drawing coordinates
 		StdDraw.setXscale(0, 1.0);
 		StdDraw.setYscale(0, 1.0);
+		//StdDraw.enableDoubleBuffering();
 		// current state of user "query"
 		// -- these store whether the user is clicking, and where they started
 		//    clicking
@@ -27,8 +32,7 @@ public class Driver {
 		double currentClickY = 0.0;
 		
 		// draw until the user quits
-		for(;;) {
-			StdDraw.enableDoubleBuffering();
+		while(true) {
 			StdDraw.clear();
 			
 			///////////////////////////
@@ -67,13 +71,6 @@ public class Driver {
 				currentClickX = StdDraw.mouseX();
 				currentClickY = StdDraw.mouseY();
 				
-				//Marks cooridnate thats been clicked
-				Point2D p = new Point2D.Double(currentClickX, currentClickY);
-				
-				//Create node with current coord
-				st.add(p);
-				
-				
 				
 
 				
@@ -81,7 +78,7 @@ public class Driver {
 				// location
 				StdDraw.line(startClickX, startClickY, currentClickX, currentClickY);
 			}
-			
+						
 			/////////////////////////////
 			// HANDLING KEYBOARD INPUT //
 			/////////////////////////////
