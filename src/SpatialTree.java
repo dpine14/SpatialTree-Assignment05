@@ -45,7 +45,7 @@ public class SpatialTree{
 		
 		if(n == null)
 		{
-			root = new Node(p, null);
+			root = new Node(p);
 			return true;
 		}
 		
@@ -59,12 +59,12 @@ public class SpatialTree{
 		//Case 1: v will be a left child
 		if((n.getPoint().getX() - p.getX()) > 0  && (n.getPoint().getY() - p.getY()) > 0)
 		{
-			n.setLeft(new Node(p, n));
+			n.setLeft(new Node(p));
 		}
 		//Case 2: v will be right child
 		else
 		{
-			n.setRight(new Node(p, n));
+			n.setRight(new Node(p ));
 		}
 		System.out.println("Node added");
 		return true;

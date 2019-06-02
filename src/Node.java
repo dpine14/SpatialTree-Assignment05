@@ -3,13 +3,13 @@ import java.awt.geom.Point2D;
 public class Node{
 	private Node left, right, parent;
 	private Point2D point;
-	private boolean X = true;
+	private boolean isX = true;
 		
-	public Node(Point2D p, Node parent) {
+	public Node(Point2D p) {
 		left = null;
 		right = null;
 		this.parent = parent;
-		this.X = X;
+		this.isX = isX;
 		this.point = p;
 	}
 	//Getters
@@ -26,7 +26,7 @@ public class Node{
 	}
 	
 	public boolean isX() {
-		return this.X;
+		return this.isX;
 	}
 	
 	public Point2D getPoint() {
@@ -43,7 +43,7 @@ public class Node{
 	}
 	
 	public void setX(boolean b) {
-		this.X = b;
+		this.isX = b;
 	}
 	
 	public String toString(Node n) {

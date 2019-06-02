@@ -4,22 +4,17 @@ import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.lang.Math;
 import java.util.Stack;
-
+import java.util.Random;
 
 public class Driver {
 	public static void main(String[] args) {
-		//Instantiate the tree
-		SpatialTree st = new SpatialTree();
-		
-		//Instantiate stack to hold drawn points
-		Stack drawn = new Stack();
-		
+	
 		// setup standard draw
 		// -- the actual pixel dimensions
 		StdDraw.setCanvasSize(512, 512);
 		// -- the drawing coordinates
-		StdDraw.setXscale(0, 1.0);
-		StdDraw.setYscale(0, 1.0);
+		StdDraw.setXscale(0, 512.0);
+		StdDraw.setYscale(0, 512.0);
 		//StdDraw.enableDoubleBuffering();
 		// current state of user "query"
 		// -- these store whether the user is clicking, and where they started
@@ -31,10 +26,20 @@ public class Driver {
 		double currentClickX = 0.0;
 		double currentClickY = 0.0;
 		
+		//Instantiate the tree
+		SpatialTree st = new SpatialTree();
+		Random rand = new Random();
+		for (int i = 0; i < 100; i++) {
+			double randX = rand.nextInt(513);
+			double randY = rand.nextInt(513);
+			Point2D p = new Point2D.Double(randX, randY);
+			Node n = new Node(p);
+		}
+		
 		// draw until the user quits
 		while(true) {
 			StdDraw.clear();
-			
+
 			///////////////////////////
 			// HANDLING MOUSE CLICKS //
 			///////////////////////////
