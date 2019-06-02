@@ -45,6 +45,10 @@ public class Node{
 	public void setX(boolean b) {
 		this.X = b;
 	}
+	
+	public String toString(Node n) {
+		return "(" + n.point.getX() + ", " + n.point.getY() + ")";
+	}
 }
 
 
