@@ -28,13 +28,23 @@ public class Driver {
 		
 		//Instantiate the tree
 		SpatialTree st = new SpatialTree();
-		Random rand = new Random();
-		for (int i = 0; i < 100; i++) {
-			double randX = rand.nextInt(513);
-			double randY = rand.nextInt(513);
+		Random rand = new Random(System.currentTimeMillis());
+		for (int i = 0; i <= 100; i++) {
+
+			int randX = rand.nextInt(513);
+			int randY = rand.nextInt(513);
 			Point2D p = new Point2D.Double(randX, randY);
-			Node n = new Node(p);
+			System.out.println("Point to add:" + p.toString());
+			st.add(p);
+			System.out.println(i + "   Height: " + st.getRoot().height());
+			System.out.println(st.findNode(p, st.getRoot()));
+			try {
+				Thread.sleep((long)1);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
+		st.toString();
 		
 		// draw until the user quits
 		while(true) {

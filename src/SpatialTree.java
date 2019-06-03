@@ -13,29 +13,54 @@ public class SpatialTree{
 		return root;
 	}
 	
-	private Node findNode(Point2D p, Node r)
+	/**
+	 * 
+	 * @param p - point
+	 * @param r - root node
+	 * @return
+	 */
+	public Node findNode(Point2D p, Node r)
 	{
 		//Case 1: Tree is empty
 		//This can only be true when the entire tree is empty
 		if(r == null){
+			//System.out.println("Case 1");
 			return null;
 		}
 		
 		//Case 2: We reached a leaf
-		if(r.getLeft() == null && r.getRight() == null){
+		if(r.left == null && r.right == null){
+			//System.out.println("Case 2");
 			return r;
 		}
 		
 		//Case 3: I found the value
-		if((r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) == 0){
-			return r;
+		
+		if(r.hasParent() && r.parent.isX) {
+			//System.out.println("Case 3");
+			if(r.getPoint().equals(p)) {
+				return r;
+			}
+			if(r.hasLeft() && r.getPoint().getY()- p.getY() > 0) {
+				return findNode(p, r.left);
+			}
+			if(r.hasRight() && r.getPoint().getY() - p.getY() < 0) {
+				return findNode(p, r.right);
+			}
 		}
-		if(r.getLeft() != null && (r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) > 0){
-			return findNode(p, r.getLeft());
+		if(r.hasParent() && !r.parent.isX) {
+			//System.out.println("Case 3");
+			if(r.getPoint().equals(p)) {
+				return r;
+			}
+			if(r.hasLeft() && r.getPoint().getX()- p.getX() > 0) {
+				return findNode(p, r.left);
+			}
+			if(r.hasRight() && r.getPoint().getX() - p.getX() < 0) {
+				return findNode(p, r.right);
+			}
 		}
-		if(r.getRight() != null && (r.getPoint().getX() - p.getX()) == 0  && (r.getPoint().getY() - p.getY()) < 0){
-			return findNode(p, r.getRight());
-		}
+
 		return r;
 	}
 	
@@ -57,7 +82,7 @@ public class SpatialTree{
 		
 		//Value does not exist in the set and n is the parent
 		//Case 1: v will be a left child
-		if((n.getPoint().getX() - p.getX()) > 0  && (n.getPoint().getY() - p.getY()) > 0)
+		if((n.getPoint().getX() - p.getX()) > 0  && n.getPoint().getY() - p.getY() > 0)
 		{
 			n.setLeft(new Node(p));
 		}
@@ -74,22 +99,23 @@ public class SpatialTree{
 		
 	}
 	
-	private String toStringRecursive(StringBuilder sb, Node root, int level)
+	private String toStringRecursive(StringBuilder sb, Node root)
 	{
+		int height = root.height();
 		//Print the root
-		for(int i=0; i < level; i++)
+		for(int i=0; i < height; i++)
 		{
 			sb.append("\t");
 		}
-		sb.append(root + "\n");
+		sb.append(root.printPoint() + "\n");
 		
-		if(root.getLeft() != null)
+		if(root.left != null)
 		{
-			toStringRecursive(sb, root.getLeft(), level+1);
+			toStringRecursive(sb, root.left);
 		}
-		if(root.getRight() != null)
+		if(root.right != null)
 		{
-			toStringRecursive(sb, root.getRight(), level+1);
+			toStringRecursive(sb, root.right);
 		}
 		
 		return sb.toString();
@@ -99,6 +125,6 @@ public class SpatialTree{
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		return toStringRecursive(sb, root, 0);
+		return toStringRecursive(sb, root);
 	}
 }	

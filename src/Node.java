@@ -18,6 +18,7 @@ public class Node{
 		this.left = null;
 		this.right = null;
 		this.parent = null;
+		this.isX = isX;
 	}
 
 	// helper methods, to identify properties of this node
@@ -32,18 +33,27 @@ public class Node{
 
 	public boolean isInternal() {
 		return hasLeft() || hasRight();
-		// return !isLeaf();
+
 	}
 
 	public boolean isRoot() {
 		return !hasParent();
 	}
+	
+	public Point2D getPoint() {
+		return p;
+	}
+	
+	public String printPoint() {
+		return ("(" + p.getX() + ", " + p.getY() + ")");
+	}
+	
 
 	// methods to attach nodes, which maintain our class invariants
 	// (1) if n.left == m, then m.parent == n
 	// (2) if n.right == m, then m.parent == n
 	// (3) if m.parent == n, then n.left == m or n.right == m
-	public void attachLeft(Node left) {
+	public void setLeft(Node left) {
 		// attaches the given node as the left child
 		this.left = left;
 
@@ -52,7 +62,7 @@ public class Node{
 			left.parent = this;
 	}
 
-	public void attachRight(Node right) {
+	public void setRight(Node right) {
 		// attaches the given node as the left child
 		this.right = right;
 
